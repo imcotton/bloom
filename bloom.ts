@@ -20,7 +20,7 @@ function uint8ArrayToNumber(input: Uint8Array) {
  * @param n, the number to be converted
  * @return a Uint8Array representation of the number
  */
-export function numberToUint8Array(n: number): Uint8Array {
+function numberToUint8Array(n: number): Uint8Array {
 
     const result = Array.from({ length: 8 }).reduce(({ acc, x }) => ({
         acc: acc.concat(x & 0xFF),
