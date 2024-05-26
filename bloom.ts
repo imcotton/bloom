@@ -125,12 +125,12 @@ export function gen_buckets({ k, size }: Omit<BloomParams, "filter">) {
         return Array.from({ length: k }, (_, i) => {
 
             const sum = hash32(input, i);
-            const newindex = sum % size;
+            const next = sum % size;
 
-            return {
-                index: newindex >> 3,
-                position: newindex % 8,
-            };
+            const index = next >> 3;
+            const position = next % 8;
+
+            return { index, position };
 
         });
 
