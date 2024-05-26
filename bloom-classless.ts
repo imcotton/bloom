@@ -1,9 +1,15 @@
 import {
+
     calc,
+
     from_dump,
-    gen_buckets,
+
     gen_dump,
+
+    gen_buckets,
+
     type BucketInfo,
+
 } from "./bloom.ts";
 
 
@@ -16,6 +22,8 @@ export interface BloomClassless {
 
     readonly size: number;
 
+    dump (): Uint8Array;
+
     lookup (input: Uint8Array): boolean;
 
                 insert (input:               Uint8Array):          BloomClassless;
@@ -23,8 +31,6 @@ export interface BloomClassless {
           batch_insert (input:      Iterable<Uint8Array>):         BloomClassless;
 
     async_batch_insert (input: AsyncIterable<Uint8Array>): Promise<BloomClassless>;
-
-    dump (): Uint8Array;
 
 }
 
@@ -71,6 +77,10 @@ function gen_bloom ({ k, size, filter }: {
 
         size,
 
+        dump () {
+            return gen_dump({ k, size, filter: store });
+        },
+
         lookup (input) {
 
             return some(function ({ index, position }) {
@@ -106,10 +116,6 @@ function gen_bloom ({ k, size, filter }: {
                 filter: await async_fold(append, store, input),
             });
 
-        },
-
-        dump () {
-            return gen_dump({ k, size, filter: store });
         },
 
     };
