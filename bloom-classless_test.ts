@@ -17,9 +17,9 @@ Deno.test("should accept AsyncIterable as inserting source", async function () {
 
     const { lookup } = await async_batch_insert(readable);
 
-    assert(source.every(lookup));
+    assert(source.every(lookup), "every lookup");
 
-    assert(lookup(Uint8Array.of(1, 2, 3)) === false);
+    assert(lookup(Uint8Array.of(1, 2, 3)) === false, "false positive");
 
 });
 
