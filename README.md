@@ -35,6 +35,10 @@ const filter = bloom_by(4000, 1e-7);
 const filter1 = filter.insert(item);
 
 const filter2 = filter.batch_insert([ item, item ]);
+
+const filter3 = await filter.async_batch_insert(
+    ReadableStream.from([ item, item ]),
+);
 ```
 
 
