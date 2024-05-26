@@ -128,8 +128,8 @@ export function gen_buckets(length: number, size: number) {
             const newindex = sum % size;
 
             return {
-                index: Math.floor(newindex / 8),
-                position: Math.floor(newindex % 8),
+                index: newindex >> 3,
+                position: newindex % 8,
             };
 
         });
