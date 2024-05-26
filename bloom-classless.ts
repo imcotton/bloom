@@ -69,6 +69,7 @@ function gen_bloom ({ k, size, filter }: {
 
     const store = filter ?? new Uint8Array(size).fill(0);
 
+    const next = gen_bloom_curried({ k, size });
     const buckets = gen_buckets(k, size);
     const append = lift(buckets);
 
@@ -97,27 +98,35 @@ function gen_bloom ({ k, size, filter }: {
 
         insert (input) {
 
-            return gen_bloom({ k, size,
-                filter: append(store, input),
-            });
+            return next(append(store, input));
 
         },
 
         batch_insert (input) {
 
-            return gen_bloom({ k, size,
-                filter: fold(append, store, input),
-            });
+            return next(fold(append, store, input));
 
         },
 
         async async_batch_insert (input) {
 
-            return gen_bloom({ k, size,
-                filter: await async_fold(append, store, input),
-            });
+            return next(await async_fold(append, store, input));
 
         },
+
+    };
+
+}
+
+
+
+
+
+function gen_bloom_curried ({ k, size }: Omit<BloomParams, "filter">) {
+
+    return function (filter: BloomParams["filter"]) {
+
+        return gen_bloom({ k, size, filter });
 
     };
 
