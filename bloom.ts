@@ -37,7 +37,7 @@ export function numberToUint8Array(n: number): Uint8Array {
 /**
  * type to allow the Bloom constructor to initialize from a file
  */
-type BloomParams = { filter: Uint8Array; k: number; size: number };
+export type BloomParams = { filter: Uint8Array; k: number; size: number };
 
 export class Bloom {
     public readonly filter: Uint8Array;

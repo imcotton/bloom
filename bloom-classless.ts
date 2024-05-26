@@ -9,6 +9,7 @@ import {
     gen_buckets,
 
     type BucketInfo,
+    type BloomParams,
 
 } from "./bloom.ts";
 
