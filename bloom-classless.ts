@@ -174,11 +174,11 @@ function update (buf: Uint8Array, { index, value }: {
 
 }) {
 
-    if (typeof buf.with === 'function') {
+    if (typeof buf.with === "function") {
         return buf.with(index, value);
     }
 
-    const clone = typeof structuredClone === 'function'
+    const clone = typeof structuredClone === "function"
         ? structuredClone(buf, { transfer: [ buf.buffer ] })
         : Uint8Array.from(buf)
     ;
