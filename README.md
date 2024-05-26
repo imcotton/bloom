@@ -27,7 +27,7 @@ const filter2 = bloom_from(filter1.dump());
 
 ## insert
 
-immutable updates
+immutable insertion
 
 ```ts
 const filter = bloom_by(4000, 1e-7);
