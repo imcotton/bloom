@@ -199,13 +199,13 @@ function some <T> (
 
 
 
-function fold <A, B, C> (
+function fold <A, B> (
 
-        f: (acc: A, x: B) => C,
+        f: (acc: A, x: B) => A,
         x: A,
         xs: Iterable<B>,
 
-): C {
+): A {
 
     // @ts-ignore https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Iterator/reduce
     return xs.reduce?.(f, x) ?? Array.from(xs).reduce(f, x);
