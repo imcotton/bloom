@@ -148,7 +148,7 @@ export function calc(n: number, fp: number) {
 
 }
 
-export function gen_dump(that: { k: number, size: number, filter: Uint8Array }) {
+export function gen_dump(that: BloomParams) {
     const k = numberToUint8Array(that.k);
     const size = numberToUint8Array(that.size);
 
