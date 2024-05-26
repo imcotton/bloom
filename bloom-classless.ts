@@ -70,7 +70,7 @@ function gen_bloom ({ k, size, filter }: {
     const store = filter ?? new Uint8Array(size).fill(0);
 
     const next = gen_bloom_curried({ k, size });
-    const buckets = gen_buckets(k, size);
+    const buckets = gen_buckets({ k, size });
     const append = lift(buckets);
 
     return {

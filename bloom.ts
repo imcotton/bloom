@@ -53,7 +53,7 @@ export class Bloom {
             this.filter = bloomParams.filter;
             this.k = bloomParams.k;
             this.size = bloomParams.size;
-            this.#buckets = gen_buckets(this.k, this.size);
+            this.#buckets = gen_buckets(this);
             return;
         }
 
@@ -61,7 +61,7 @@ export class Bloom {
 
         this.k = k;
         this.size = size;
-        this.#buckets = gen_buckets(k, size);
+        this.#buckets = gen_buckets(this);
         this.filter = new Uint8Array(size).fill(0);
     }
 
@@ -113,7 +113,7 @@ export class Bloom {
     }
 }
 
-export function gen_buckets(length: number, size: number) {
+export function gen_buckets({ k, size }: Omit<BloomParams, "filter">) {
 
     /**
      * buckets hashes k times and populate those buckets that get hit
@@ -122,7 +122,7 @@ export function gen_buckets(length: number, size: number) {
      */
     return function(input: Uint8Array): Array<BucketInfo> {
 
-        return Array.from({ length }, (_, i) => {
+        return Array.from({ length: k }, (_, i) => {
 
             const sum = hash32(input, i);
             const newindex = sum % size;
