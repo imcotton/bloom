@@ -31,14 +31,14 @@ const filter2 = bloom_from(filter1.dump());
 immutable insertion
 
 ```ts
-const filter = bloom_by(4000, 1e-7);
+let filter = bloom_by(4000, 1e-7);
 
-const filter1 = filter.insert(item);
+filter = filter.insert(a);
 
-const filter2 = filter.batch_insert([ item, item ]);
+filter = filter.batch_insert([ b, c ]);
 
-const filter3 = await filter.async_batch_insert(
-    ReadableStream.from([ item, item ]),
+filter = await filter.async_batch_insert(
+    ReadableStream.from([ d, e, f ]),
 );
 ```
 
