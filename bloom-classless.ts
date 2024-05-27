@@ -7,18 +7,23 @@ import { calc, from_dump, gen_dump, gen_buckets } from "./utils.ts";
 
 export interface BloomClassless {
 
+    /** number of buckets to check for the hash */
     readonly k: number;
 
+    /** total size in bytes of the bloom filter */
     readonly size: number;
 
     dump (): Uint8Array;
 
     lookup (input: Uint8Array): boolean;
 
+    /** **immutable** */
                 insert (input:               Uint8Array):          BloomClassless;
 
+    /** **immutable** */
           batch_insert (input:      Iterable<Uint8Array>):         BloomClassless;
 
+    /** **immutable** */
     async_batch_insert (input: AsyncIterable<Uint8Array>): Promise<BloomClassless>;
 
 }
@@ -27,6 +32,12 @@ export interface BloomClassless {
 
 
 
+/**
+ * Create filter by total count and false positive rate.
+ *
+ * @param  n The number of total items in this filter.
+ * @param fp The false positive rate of this filter.
+ */
 export function bloom_by (n: number, fp: number): BloomClassless {
 
     return gen_bloom(calc(n, fp));
@@ -37,6 +48,11 @@ export function bloom_by (n: number, fp: number): BloomClassless {
 
 
 
+/**
+ * Create filter from raw bytes.
+ *
+ * @param dump The raw bytes generated from {@link BloomClassless#dump}
+ */
 export function bloom_from (dump: Uint8Array): BloomClassless {
 
     return gen_bloom(from_dump(dump));
