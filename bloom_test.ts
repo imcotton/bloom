@@ -1,4 +1,3 @@
-import { Bloom } from "./bloom.ts";
 import { bloom_by, bloom_from } from "./bloom-classless.ts";
 import { assertEquals } from "jsr:@std/assert@^0.204.0";
 
@@ -44,11 +43,11 @@ Deno.test("should not find random inputs in the filter", () => {
 });
 
 Deno.test("should insert, dump, read and then look up correctly", () => {
-    const filter = new Bloom(4000, 0.0000001);
+    let filter = bloom_by(4000, 0.0000001);
     const input = "hello world";
     const encoder = new TextEncoder();
     const uint8array = encoder.encode(input);
-    filter.insert(uint8array);
+    filter = filter.insert(uint8array);
     assertEquals(filter.lookup(uint8array), true);
 
     const filter2 = bloom_from(filter.dump());
