@@ -1,17 +1,5 @@
-import {
-
-    calc,
-
-    from_dump,
-
-    gen_dump,
-
-    gen_buckets,
-
-    type BucketInfo,
-    type BloomParams,
-
-} from "./utils.ts";
+import type { BucketInfo, BloomParams } from "./utils.ts";
+import { calc, from_dump, gen_dump, gen_buckets } from "./utils.ts";
 
 
 
