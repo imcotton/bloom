@@ -1,7 +1,8 @@
 > [!NOTE]
-> This is a forked version of (https://jsr.io/@kgwinnup/bloom),
+> This is a forked version of (https://jsr.io/@kgwinnup/bloom), \
 > featuring significant internal rewrites from **class-based**
-> to **functional** implementation.\
+> to **functional** implementation.
+> 
 > Stick to the original unless you're specifically interested
 > in functional programming characteristics.
 
