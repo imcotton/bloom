@@ -51,7 +51,7 @@ export function bloom_by (n: number, fp: number): BloomClassless {
 /**
  * Create filter from raw bytes.
  *
- * @param dump The raw bytes generated from {@link BloomClassless#dump}
+ * @param dump The raw bytes generated from {@see BloomClassless#dump}
  */
 export function bloom_from (dump: Uint8Array): BloomClassless {
 
