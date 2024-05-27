@@ -13,18 +13,18 @@ export interface BloomClassless {
     /** total size in bytes of the bloom filter */
     readonly size: number;
 
-    dump (): Uint8Array;
+    dump(): Uint8Array;
 
-    lookup (input: Uint8Array): boolean;
-
-    /** **immutable** */
-                insert (input:               Uint8Array):          BloomClassless;
+    lookup(input: Uint8Array): boolean;
 
     /** **immutable** */
-          batch_insert (input:      Iterable<Uint8Array>):         BloomClassless;
+                insert(input:               Uint8Array):          BloomClassless;
 
     /** **immutable** */
-    async_batch_insert (input: AsyncIterable<Uint8Array>): Promise<BloomClassless>;
+          batch_insert(input:      Iterable<Uint8Array>):         BloomClassless;
+
+    /** **immutable** */
+    async_batch_insert(input: AsyncIterable<Uint8Array>): Promise<BloomClassless>;
 
 }
 
@@ -51,7 +51,7 @@ export function bloom_by (n: number, fp: number): BloomClassless {
 /**
  * Create filter from raw bytes.
  *
- * @param dump The raw bytes generated from {@see BloomClassless#dump}
+ * @param dump The raw bytes generated from {@link BloomClassless.dump}
  */
 export function bloom_from (dump: Uint8Array): BloomClassless {
 
