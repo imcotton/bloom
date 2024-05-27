@@ -47,15 +47,13 @@ export function bloom_from (dump: Uint8Array): BloomClassless {
 
 
 
-function gen_bloom ({ k, size, filter }: {
+function gen_bloom ({ k, size, filter = new Uint8Array(size) }: {
 
         k: number,
         size: number,
         filter?: Uint8Array,
 
 }): BloomClassless {
-
-    const store = filter ?? new Uint8Array(size).fill(0);
 
     const next = gen_bloom_curried({ k, size });
     const buckets = gen_buckets({ k, size });
@@ -68,7 +66,9 @@ function gen_bloom ({ k, size, filter }: {
         size,
 
         dump () {
-            return gen_dump({ k, size, filter: store });
+
+            return gen_dump({ k, size, filter });
+
         },
 
         lookup (input) {
@@ -76,7 +76,7 @@ function gen_bloom ({ k, size, filter }: {
             return some(function ({ index, position }) {
 
                 const bit = 1 << position;
-                const value = at(store, index) & bit;
+                const value = at(filter, index) & bit;
 
                 return value !== 0;
 
@@ -86,19 +86,19 @@ function gen_bloom ({ k, size, filter }: {
 
         insert (input) {
 
-            return next(append(store, input));
+            return next(append(filter, input));
 
         },
 
         batch_insert (input) {
 
-            return next(fold(append, store, input));
+            return next(fold(append, filter, input));
 
         },
 
         async async_batch_insert (input) {
 
-            return next(await async_fold(append, store, input));
+            return next(await async_fold(append, filter, input));
 
         },
 
