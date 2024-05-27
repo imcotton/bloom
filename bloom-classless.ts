@@ -11,7 +11,7 @@ import {
     type BucketInfo,
     type BloomParams,
 
-} from "./bloom.ts";
+} from "./utils.ts";
 
 
 
