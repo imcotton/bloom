@@ -160,7 +160,7 @@ function lift (buckets: (_: Uint8Array) => Iterable<BucketInfo>) {
 
 
 
-function at (buf: Uint8Array, index: number): number | undefined {
+export function at (buf: Uint8Array, index: number): number | undefined {
 
     return buf.at?.(index) ?? buf[index];
 
@@ -196,7 +196,7 @@ function update (buf: Uint8Array, { index, value }: {
 
 
 
-function modify (
+export function modify (
 
         buf: Uint8Array,
         index: number,
