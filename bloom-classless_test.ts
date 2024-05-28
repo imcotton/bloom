@@ -1,4 +1,4 @@
-import { bloom_by, at, modify } from "./bloom-classless.ts";
+import { bloom_by, gen_bloom, at, modify } from "./bloom-classless.ts";
 import { assert, assertEquals } from "jsr:@std/assert@^0.224.0";
 import { describe, it } from "jsr:@std/testing@^0.224.0/bdd";
 
@@ -23,6 +23,28 @@ Deno.test("should accept AsyncIterable as inserting source", async function () {
     assert(source.every(lookup), "every lookup");
 
     assert(lookup(rand(32)) === false, "false positive");
+
+});
+
+
+
+
+
+describe("gen_bloom", function () {
+
+    it("ok with empty filter", function () {
+
+        const filter = Uint8Array.of();
+
+        let bloom = gen_bloom({ k: 2, size: 100, filter });
+
+        assert(bloom.lookup(Uint8Array.of(1)) === false);
+
+        bloom = bloom.insert(Uint8Array.of(2));
+
+        assert(bloom.lookup(Uint8Array.of(1)) === false);
+
+    });
 
 });
 

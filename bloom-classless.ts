@@ -63,7 +63,7 @@ export function bloom_from (dump: Uint8Array): BloomClassless {
 
 
 
-function gen_bloom ({ k, size, filter = new Uint8Array(size) }: {
+export function gen_bloom ({ k, size, filter = new Uint8Array(size) }: {
 
         k: number,
         size: number,
