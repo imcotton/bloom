@@ -12,7 +12,7 @@ export type BucketInfo = { index: number; position: number };
  * @returns a javascript number
  */
 function uint8ArrayToNumber(input: Uint8Array): number {
-    return Array.from(input).reduceRight((acc, x) => (acc << 8) + x, 0);
+    return input.reduceRight((acc, x) => (acc << 8) + x, 0);
 }
 
 /**
