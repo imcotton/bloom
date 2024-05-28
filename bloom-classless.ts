@@ -92,9 +92,9 @@ function gen_bloom ({ k, size, filter = new Uint8Array(size) }: {
             return !some(function ({ index, position }) {
 
                 const bit = 1 << position;
-                const value = at(filter, index);
+                const value = at(filter, index) ?? 0;
 
-                return value == null || (value & bit) === 0;
+                return (value & bit) === 0;
 
             }, buckets(input));
 
