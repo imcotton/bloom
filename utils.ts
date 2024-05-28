@@ -1,6 +1,11 @@
 import { hash32 } from "./murmur3.ts";
 
 /**
+ * type to allow the Bloom constructor to initialize from a file
+ */
+export type BloomParams = { filter: Uint8Array; k: number; size: number };
+
+/**
  * BucketInfo is returned by the buckets function and represents the byte index in the filter and the position within
  * that byte
  */
@@ -33,11 +38,6 @@ function numberToUint8Array(n: number): Uint8Array {
     return Uint8Array.from(result.acc);
 
 }
-
-/**
- * type to allow the Bloom constructor to initialize from a file
- */
-export type BloomParams = { filter: Uint8Array; k: number; size: number };
 
 export function gen_buckets({ k, size }: Omit<BloomParams, "filter">) {
 
