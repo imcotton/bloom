@@ -92,9 +92,9 @@ function gen_bloom ({ k, size, filter = new Uint8Array(size) }: {
             return !some(function ({ index, position }) {
 
                 const bit = 1 << position;
-                const value = at(filter, index) & bit;
+                const value = at(filter, index);
 
-                return value === 0;
+                return value == null || (value & bit) === 0;
 
             }, buckets(input));
 
@@ -161,7 +161,7 @@ function lift (buckets: (_: Uint8Array) => Iterable<BucketInfo>) {
 
 
 
-function at (buf: Uint8Array, index: number) {
+function at (buf: Uint8Array, index: number): number | undefined {
 
     return buf.at?.(index) ?? buf[index];
 
