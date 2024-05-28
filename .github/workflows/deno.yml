@@ -37,3 +37,11 @@ jobs:
           deno test -A --quiet --coverage
           deno coverage --lcov --output=cov.lcov
           deno coverage
+
+      - name: Run Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          slug: imcotton/bloom
+          files: ./cov.lcov
+          token: ${{ secrets.CODECOV_TOKEN }}
+
