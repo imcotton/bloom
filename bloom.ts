@@ -68,7 +68,7 @@ export class Bloom {
 
             const bit = 1 << position;
 
-            if ((this.filter[index] & bit) === 0) {
+            if ((this.filter[index] ?? 0 & bit) === 0) {
                 return false;
             }
 
