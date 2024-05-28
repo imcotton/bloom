@@ -89,12 +89,12 @@ function gen_bloom ({ k, size, filter = new Uint8Array(size) }: {
 
         lookup (input) {
 
-            return some(function ({ index, position }) {
+            return !some(function ({ index, position }) {
 
                 const bit = 1 << position;
                 const value = at(filter, index) & bit;
 
-                return value !== 0;
+                return value === 0;
 
             }, buckets(input));
 
