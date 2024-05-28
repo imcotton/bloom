@@ -21,5 +21,7 @@ Deno.test("should accept AsyncIterable as inserting source", async function () {
 
     assert(source.every(lookup), "every lookup");
 
+    assert(lookup(rand(32)) === false, "false positive");
+
 });
 
