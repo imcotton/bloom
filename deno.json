@@ -7,6 +7,11 @@
   "tasks": {
     "dev": "deno run --watch bloom.ts"
   },
+  "compilerOptions": {
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noUncheckedIndexedAccess": true
+  },
   "lock": false,
   "publish": {
     "exclude": [
