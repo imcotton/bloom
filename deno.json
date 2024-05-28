@@ -4,9 +4,6 @@
   "description": "Bloom filter implementation in pure typescript",
   "version": "201.3.0",
   "exports": "./mod.ts",
-  "tasks": {
-    "dev": "deno run --watch bloom.ts"
-  },
   "compilerOptions": {
     "noUnusedLocals": true,
     "noUnusedParameters": true,
