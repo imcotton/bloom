@@ -46,7 +46,7 @@ export function gen_buckets({ k, size }: Omit<BloomParams, "filter">) {
      * @param input is the thing to be placed into the bloom filter
      * @return an array of which bucket and position the bit is in
      */
-    return function(input: Uint8Array): Array<BucketInfo> {
+    return function(input: Uint8Array): Iterable<BucketInfo> {
 
         return Array.from({ length: k }, (_, i) => {
 
