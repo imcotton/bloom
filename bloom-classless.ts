@@ -13,18 +13,18 @@ export interface BloomClassless {
     /** total size in bytes of the bloom filter */
     readonly size: number;
 
-    dump(): Uint8Array;
+    dump (): Uint8Array;
 
-    lookup(input: Uint8Array): boolean;
-
-    /** **immutable** */
-                insert(input:               Uint8Array):          BloomClassless;
+    lookup (input: Uint8Array): boolean;
 
     /** **immutable** */
-          batch_insert(input:      Iterable<Uint8Array>):         BloomClassless;
+                insert (input:               Uint8Array):          BloomClassless;
 
     /** **immutable** */
-    async_batch_insert(input: AsyncIterable<Uint8Array>): Promise<BloomClassless>;
+          batch_insert (input:      Iterable<Uint8Array>):         BloomClassless;
+
+    /** **immutable** */
+    async_batch_insert (input: AsyncIterable<Uint8Array>): Promise<BloomClassless>;
 
 }
 
