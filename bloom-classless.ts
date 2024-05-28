@@ -147,9 +147,8 @@ function lift (buckets: (_: Uint8Array) => Iterable<BucketInfo>) {
         return fold(function (acc, { index, position }) {
 
             const bit = 1 << position;
-            const value = at(acc, index) | bit;
 
-            return update(acc, { index, value });
+            return modify(acc, index, value => value | bit);
 
         }, filter, buckets(input));
 
@@ -190,6 +189,28 @@ function update (buf: Uint8Array, { index, value }: {
     clone[index] = value;
 
     return clone;
+
+}
+
+
+
+
+
+function modify (
+
+        buf: Uint8Array,
+        index: number,
+        map: (n: number) => number,
+
+) {
+
+    const value = at(buf, index);
+
+    if (value != null) {
+        return update(buf, { index, value: map(value) });
+    }
+
+    return buf;
 
 }
 
