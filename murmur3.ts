@@ -1,4 +1,4 @@
-// @ts-nocheck mainly for noUncheckedIndexedAccess
+// @ts-nocheck mainly for the noUncheckedIndexedAccess
 
 /**
  * Murmur3 hashing computes the 32bit murmur3 hashing algorithm
