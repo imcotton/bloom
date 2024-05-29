@@ -87,9 +87,12 @@ export function gen_dump({ k, size, filter }: BloomParams): Uint8Array {
 }
 
 export function from_dump(input: Uint8Array): BloomParams {
+
     const k = uint8ArrayToNumber(input.subarray(0, 8));
     const size = uint8ArrayToNumber(input.subarray(8, 16));
     const filter = input.subarray(16, size + 16);
-    return { filter, k, size };
+
+    return { k, size, filter };
+
 }
 
