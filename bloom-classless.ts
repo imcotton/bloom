@@ -13,8 +13,17 @@ export interface BloomClassless {
     /** total size in bytes of the bloom filter */
     readonly size: number;
 
+    /**
+     * dump will convert the entire bloom filter to a `Uint8Array` for storing,
+     * this will contain all information in order to re-hydrate this bloom
+     * filter using the {@linkcode bloom_from} function
+     */
     dump (): Uint8Array;
 
+    /**
+     * insert will flip all the bits to 1 corresponding to the input hash
+     * in the bloom filter
+     */
     lookup (input: Uint8Array): boolean;
 
     /** **immutable** */
