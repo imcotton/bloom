@@ -9,6 +9,7 @@
 # Bloom filter <sup>(classless)</sup>
 
 [![JSR](https://jsr.io/badges/@imcotton/bloom)](https://jsr.io/@imcotton/bloom)
+[![codecov](https://codecov.io/gh/imcotton/bloom/graph/badge.svg)](https://codecov.io/gh/imcotton/bloom)
 
 
 
