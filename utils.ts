@@ -74,16 +74,16 @@ export function calc(n: number, fp: number): Omit<BloomParams, "filter"> {
 
 }
 
-export function gen_dump(that: BloomParams): Uint8Array {
-    const k = numberToUint8Array(that.k);
-    const size = numberToUint8Array(that.size);
+export function gen_dump({ k, size, filter }: BloomParams): Uint8Array {
 
-    const buf = new Uint8Array(8 + 8 + that.size).fill(0);
-    buf.set(k, 0);
-    buf.set(size, 8);
-    buf.set(that.filter, 16);
+    const buf = new Uint8Array(8 + 8 + size);
+
+    buf.set(numberToUint8Array(k), 0);
+    buf.set(numberToUint8Array(size), 8);
+    buf.set(filter, 8 + 8);
 
     return buf;
+
 }
 
 export function from_dump(input: Uint8Array): BloomParams {
