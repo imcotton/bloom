@@ -5,6 +5,9 @@ import { calc, from_dump, gen_dump, gen_buckets } from "./utils.ts";
 
 
 
+/**
+ * **NOT** a `class`
+ */
 export interface BloomClassless {
 
     /** number of buckets to check for the hash */
@@ -20,19 +23,25 @@ export interface BloomClassless {
      */
     dump (): Uint8Array;
 
-    /**
-     * insert will flip all the bits to 1 corresponding to the input hash
-     * in the bloom filter
-     */
+    /** lookup returns true if the input is in the filter, false otherwise */
     lookup (input: Uint8Array): boolean;
 
-    /** **immutable** */
+    /**
+     * **immutable**, insert will flip all the bits to 1 corresponding
+     * to the input hash by returning **new** created bloom filter
+     */
                 insert (input:               Uint8Array):          BloomClassless;
 
-    /** **immutable** */
+    /**
+     * **immutable**, same as `insert` but accept `Iterable`
+     * such as `Array` or `Set`, etc...
+     */
           batch_insert (input:      Iterable<Uint8Array>):         BloomClassless;
 
-    /** **immutable** */
+    /**
+     * **immutable**, same as `batch_insert` but accept `AsyncIterable`
+     * such as `ReadableStream`
+     */
     async_batch_insert (input: AsyncIterable<Uint8Array>): Promise<BloomClassless>;
 
 }
