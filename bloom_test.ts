@@ -1,5 +1,5 @@
 import { bloom_by, bloom_from } from "./bloom-classless.ts";
-import { assertEquals } from "jsr:@std/assert@^0.204.0";
+import { assert, assertEquals } from "jsr:@std/assert@^0.224.0";
 
 Deno.test("should create bloom filter with correct properties", () => {
     const filter = bloom_by(4000, 0.0000001);
@@ -53,3 +53,22 @@ Deno.test("should insert, dump, read and then look up correctly", () => {
     const filter2 = bloom_from(filter.dump());
     assertEquals(filter2.lookup(uint8array), true);
 });
+
+Deno.test("should accept AsyncIterable as inserting source", async function () {
+
+    const rand = (n: number) => crypto.getRandomValues(new Uint8Array(n));
+
+    const { async_batch_insert } = bloom_by(4000, 1e-9);
+
+    const source = Array.from({ length: 5 }, () => rand(32));
+
+    const readable = ReadableStream.from(source);
+
+    const { lookup } = await async_batch_insert(readable);
+
+    assert(source.every(lookup), "every lookup");
+
+    assert(lookup(rand(32)) === false, "false positive");
+
+});
+
