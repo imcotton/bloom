@@ -66,9 +66,12 @@ export function gen_buckets({ k, size }: Omit<BloomParams, "filter">) {
 
 export function calc(n: number, fp: number): Omit<BloomParams, "filter"> {
 
-    const m = Math.ceil(n * Math.log(fp)) / Math.log(1.0 / Math.pow(2, Math.log(2)));
-    const k = Math.round((m / n) * Math.log(2));
-    const size = Math.floor(Math.ceil((m + 8.0) / 8.0));
+    const LN2_SQUARED = Math.LN2 ** 2;
+
+    const d = -n * Math.log(fp);
+    const m = Math.ceil(d / LN2_SQUARED);
+    const k = Math.round((m / n) * Math.LN2);
+    const size = Math.ceil((m + 8) / 8);
 
     return { k, size };
 
