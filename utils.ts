@@ -46,9 +46,9 @@ export function gen_buckets({ k, size }: Omit<BloomParams, "filter">) {
      * @param input is the thing to be placed into the bloom filter
      * @return an array of which bucket and position the bit is in
      */
-    return function(input: Uint8Array): Iterable<BucketInfo> {
+    return function*(input: Uint8Array): Iterable<BucketInfo> {
 
-        return Array.from({ length: k }, (_, i) => {
+        for (let i = 0; i < k; i += 1) {
 
             const sum = hash32(input, i);
             const next = sum % size;
@@ -56,9 +56,9 @@ export function gen_buckets({ k, size }: Omit<BloomParams, "filter">) {
             const index = next >> 3;
             const position = next % 8;
 
-            return { index, position };
+            yield { index, position };
 
-        });
+        }
 
     }
 
