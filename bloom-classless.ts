@@ -107,12 +107,12 @@ export function gen_bloom ({ k, size, filter = new Uint8Array(size) }: {
 
         lookup (input) {
 
-            return !some(function ({ index, position }) {
+            return every(function ({ index, position }) {
 
                 const bit = 1 << position;
                 const value = at(filter, index) ?? 0;
 
-                return (value & bit) === 0;
+                return (value & bit) !== 0;
 
             }, buckets(input));
 
@@ -236,15 +236,15 @@ export function modify (
 
 
 
-function some <T> (
+function every <T> (
 
         f: (x: T) => boolean,
         xs: Iterable<T>,
 
 ): boolean {
 
-    // @ts-ignore https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Iterator/some
-    return xs.some?.(f) ?? Array.from(xs).some(f);
+    // @ts-ignore https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Iterator/every
+    return xs.every?.(f) ?? Array.from(xs).every(f);
 
 }
 
