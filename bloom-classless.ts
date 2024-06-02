@@ -160,7 +160,7 @@ function gen_bloom_curried ({ k, size }: Omit<BloomParams, "filter">) {
 
 function lift (buckets: (_: Uint8Array) => Iterable<BucketInfo>) {
 
-    return function (filter: Uint8Array, input: Uint8Array)  {
+    return function (filter: Uint8Array, input: Uint8Array) {
 
         return fold(function (acc, { index, position }) {
 
