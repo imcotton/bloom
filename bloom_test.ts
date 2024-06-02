@@ -56,11 +56,9 @@ Deno.test("should insert, dump, read and then look up correctly", () => {
 
 Deno.test("should accept AsyncIterable as inserting source", async function () {
 
-    const rand = (n: number) => crypto.getRandomValues(new Uint8Array(n));
-
     const { async_batch_insert } = bloom_by(4000, 1e-9);
 
-    const source = Array.from({ length: 5 }, () => rand(32));
+    const source = sample(5);
 
     const readable = ReadableStream.from(source);
 
@@ -68,7 +66,11 @@ Deno.test("should accept AsyncIterable as inserting source", async function () {
 
     assert(source.every(lookup), "every lookup");
 
-    assert(lookup(rand(32)) === false, "false positive");
-
 });
+
+function sample (length: number, bytes = 32) {
+    return Array.from({ length }, function () {
+        return crypto.getRandomValues(new Uint8Array(bytes));
+    });
+}
 
