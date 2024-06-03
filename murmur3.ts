@@ -22,9 +22,9 @@ export function hash32(key: Uint8Array, seed: number = 0): number {
     const len = key.length;
     let k: number;
 
-    for (let i = 0; i + 4 <= len; i += 4) {
+    for (let i = 0; i < len; i += 4) {
         k = (key[i] & 0xff) |
-            ((key[+1] & 0xff) << 8) |
+            ((key[i + 1] & 0xff) << 8) |
             ((key[i + 2] & 0xff) << 16) |
             ((key[i + 3] & 0xff) << 24);
 
@@ -36,13 +36,13 @@ export function hash32(key: Uint8Array, seed: number = 0): number {
     k = 0;
 
     if ((len & 3) === 3) {
-        k ^= (key[len - 3] & 0xff) << 16;
+        k ^= (key[len - 2] & 0xff) << 16;
     }
     if ((len & 2) === 2) {
-        k ^= (key[len - 2] & 0xff) << 8;
+        k ^= (key[len - 1] & 0xff) << 8;
     }
     if ((len & 1) === 1) {
-        k ^= key[len - 1] & 0xff;
+        k ^= key[len - 0] & 0xff;
     }
 
     k = mixK(k);
