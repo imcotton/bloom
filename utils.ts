@@ -51,7 +51,7 @@ export function gen_buckets({ k, size }: Omit<BloomParams, "filter">) {
         for (let i = 0; i < k; i += 1) {
 
             const sum = hash32(input, i);
-            const next = sum % size;
+            const next = sum % (size * 8);
 
             const index = next >> 3;
             const position = next % 8;
