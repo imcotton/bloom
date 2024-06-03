@@ -68,6 +68,17 @@ Deno.test("should accept AsyncIterable as inserting source", async function () {
 
 });
 
+Deno.test("should no false negative with full buckets", function () {
+
+    const length = 4000;
+
+    const { batch_insert } = bloom_by(length, 1e-9);
+    const { lookup } = batch_insert(sample(length));
+
+    assert(sample(20).every(item => lookup(item) === false));
+
+});
+
 function sample (length: number, bytes = 32) {
     return Array.from({ length }, function () {
         return crypto.getRandomValues(new Uint8Array(bytes));
