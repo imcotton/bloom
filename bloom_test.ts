@@ -72,9 +72,12 @@ Deno.test("should no false negative with full buckets", function () {
 
     const length = 4000;
 
-    const { batch_insert } = bloom_by(length, 1e-9);
-    const { lookup } = batch_insert(sample(length));
+    const source = sample(length);
 
+    const { batch_insert } = bloom_by(length, 1e-9);
+    const { lookup } = batch_insert(source);
+
+    assert(    source.every(item => lookup(item) ===  true));
     assert(sample(20).every(item => lookup(item) === false));
 
 });
