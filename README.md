@@ -44,3 +44,17 @@ filter = await filter.async_batch_insert(
 ```
 
 
+
+
+
+## lookup
+
+
+```ts
+const { lookup } = bloom_by(4000, 1e-7).insert(a);
+
+lookup(a); // true
+lookup(b); // false
+```
+
+
