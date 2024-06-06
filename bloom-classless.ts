@@ -1,4 +1,4 @@
-import type { BucketInfo } from "./utils.ts";
+import type { BucketInfo, Hashing } from "./utils.ts";
 import { calc, from_dump, gen_dump, gen_buckets } from "./utils.ts";
 
 
@@ -25,6 +25,11 @@ export interface BloomClassless {
 
     /** lookup returns true if the input is in the filter, false otherwise */
     lookup (input: Uint8Array): boolean;
+
+    /** **immutable**, switch to new hashing algorithm
+     * other than the default **Murmur3**
+     */
+    swap (hash: Hashing): BloomClassless;
 
     /**
      * **immutable**, insert will flip all the bits to 1 corresponding
@@ -83,19 +88,20 @@ export function bloom_from (dump: Uint8Array): BloomClassless {
 
 type GenBloom = Parameters<typeof gen_bloom>[0];
 
-export function gen_bloom ({ k, size, filter = new Uint8Array(size) }: {
+export function gen_bloom ({ k, size, hash, filter = new Uint8Array(size) }: {
 
         k: number,
         size: number,
+        hash?: Hashing,
         filter?: Uint8Array,
 
 }): BloomClassless {
 
     const make = (next: Partial<GenBloom>) => gen_bloom({
-        k, size, filter, ...next,
+        k, size, hash, filter, ...next,
     });
 
-    const buckets = gen_buckets({ k, size });
+    const buckets = gen_buckets({ k, size, hash });
     const append = lift(buckets);
 
     return {
@@ -120,6 +126,12 @@ export function gen_bloom ({ k, size, filter = new Uint8Array(size) }: {
                 return (value & bit) !== 0;
 
             }, buckets(input));
+
+        },
+
+        swap (new_hash) {
+
+            return make({ hash: new_hash });
 
         },
 
