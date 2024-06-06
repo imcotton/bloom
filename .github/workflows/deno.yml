@@ -34,7 +34,7 @@ jobs:
 
       - name: Run tests
         run: |-
-          deno test -A --quiet --coverage
+          deno test -A --quiet --parallel --coverage
           deno coverage --lcov --output=cov.lcov
           deno coverage
 
