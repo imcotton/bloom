@@ -1,4 +1,4 @@
-import type { BloomParams } from "./utils.ts";
+import type { BloomParams, Hashing } from "./utils.ts";
 import * as utils from "./utils.ts";
 
 export class Bloom {
@@ -8,7 +8,7 @@ export class Bloom {
     // total size in bytes of the bloom filter
     readonly size: number;
 
-    readonly #buckets;
+    #buckets;
 
     constructor(n: number, fp: number, bloomParams?: BloomParams) {
         if (bloomParams) {
@@ -43,6 +43,10 @@ export class Bloom {
      */
     static from(input: Uint8Array): Bloom {
         return new Bloom(0, 0, utils.from_dump(input));
+    }
+
+    public swap(hash: Hashing) {
+        this.#buckets = utils.gen_buckets({ ...this, hash });
     }
 
     /**
