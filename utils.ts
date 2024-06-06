@@ -1,6 +1,12 @@
 import { hash32 } from "./murmur3.ts";
 
 /**
+ * @param input origin data to be sampled
+ * @param index start from 0
+ */
+export type Hashing = (input: Uint8Array, index: number) => number;
+
+/**
  * type to allow the Bloom constructor to initialize from a file
  */
 export type BloomParams = { filter: Uint8Array; k: number; size: number };
