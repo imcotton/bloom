@@ -48,7 +48,13 @@ export function numberToUint8Array(n: number): Uint8Array {
 
 }
 
-export function gen_buckets({ k, size }: Omit<BloomParams, "filter">) {
+export function gen_buckets({ k, size, hash = hash32 }: {
+
+        k: number,
+        size: number,
+        hash?: Hashing,
+
+}) {
 
     /**
      * buckets hashes k times and populate those buckets that get hit
@@ -59,7 +65,7 @@ export function gen_buckets({ k, size }: Omit<BloomParams, "filter">) {
 
         for (let i = 0; i < k; i += 1) {
 
-            const sum = hash32(input, i);
+            const sum = hash(input, i);
             const next = sum % (size * 8);
 
             const index = next >> 3;
