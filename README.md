@@ -27,6 +27,21 @@ const filter2 = bloom_from(filter1.dump());
 
 
 
+## swap
+
+create new filter with internal hashing algorithm replaced
+from the default **Murmur3**
+
+```ts
+const filter1 = bloom_by(4000, 1e-7);
+
+const filter2 = filter1.swap((input, index) => 42);
+```
+
+
+
+
+
 ## insert
 
 immutable insertion
