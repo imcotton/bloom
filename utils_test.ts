@@ -28,6 +28,28 @@ describe("uint8ArrayToNumber", function () {
 
 
 
+describe("numberToUint8Array", function () {
+
+    const buf = crypto.getRandomValues(new Uint8Array(8));
+    const hex = encodeHex(buf);
+    const big = BigInt("0x".concat(hex));
+    const num = Number(big);
+
+    it(`reads ${ hex }`, function () {
+
+        assertEquals(
+            utils.numberToUint8Array(num),
+            basis.numberToUint8Array(num),
+        );
+
+    });
+
+});
+
+
+
+
+
 const basis = {
 
     uint8ArrayToNumber(input: Uint8Array) {
@@ -36,6 +58,15 @@ const basis = {
             num += Math.pow(256, i) * input[i]!;
         }
         return num;
+    },
+
+    numberToUint8Array(n: number): Uint8Array {
+        const out = new Uint8Array(8);
+        for (let i = 0; i < 8; i++) {
+            out[i] = n % 256;
+            n = Math.floor(n / 256);
+        }
+        return out;
     },
 
 };
