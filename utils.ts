@@ -27,11 +27,14 @@ export function uint8ArrayToNumber(input: Uint8Array): number {
  */
 export function numberToUint8Array(n: number): Uint8Array {
 
-    const result = Array.from({ length: 8 }).reduce(({ acc, x }) => ({
+    const from = Array.from<number>;
+    const of = Array.of<number>;
+
+    const result = from({ length: 8 }).reduce(({ acc, x }) => ({
         acc: acc.concat(x & 0xFF),
         x: x >> 8,
     }), {
-        acc: [],
+        acc: of(),
         x: n,
     });
 
