@@ -31,8 +31,8 @@ export function numberToUint8Array(n: number): Uint8Array {
     const of = Array.of<number>;
 
     const result = from({ length: 8 }).reduce(({ acc, x }) => ({
-        acc: acc.concat(x & 0xFF),
-        x: x >> 8,
+        acc: acc.concat(x % 256),
+        x: Math.floor(x / 256),
     }), {
         acc: of(),
         x: n,
