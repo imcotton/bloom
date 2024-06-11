@@ -1,4 +1,4 @@
-import type { BucketInfo, BloomParams } from "./utils.ts";
+import type { BucketInfo } from "./utils.ts";
 import { calc, from_dump, gen_dump, gen_buckets } from "./utils.ts";
 
 
@@ -81,6 +81,8 @@ export function bloom_from (dump: Uint8Array): BloomClassless {
 
 
 
+type GenBloom = Parameters<typeof gen_bloom>[0];
+
 export function gen_bloom ({ k, size, filter = new Uint8Array(size) }: {
 
         k: number,
@@ -89,7 +91,10 @@ export function gen_bloom ({ k, size, filter = new Uint8Array(size) }: {
 
 }): BloomClassless {
 
-    const next = gen_bloom_curried({ k, size });
+    const make = (next: Partial<GenBloom>) => gen_bloom({
+        k, size, filter, ...next,
+    });
+
     const buckets = gen_buckets({ k, size });
     const append = lift(buckets);
 
@@ -120,35 +125,21 @@ export function gen_bloom ({ k, size, filter = new Uint8Array(size) }: {
 
         insert (input) {
 
-            return next(append(filter, input));
+            return make({ filter: append(filter, input) });
 
         },
 
         batch_insert (input) {
 
-            return next(fold(append, filter, input));
+            return make({ filter: fold(append, filter, input) });
 
         },
 
         async async_batch_insert (input) {
 
-            return next(await async_fold(append, filter, input));
+            return make({ filter: await async_fold(append, filter, input) });
 
         },
-
-    };
-
-}
-
-
-
-
-
-function gen_bloom_curried ({ k, size }: Omit<BloomParams, "filter">) {
-
-    return function (filter: BloomParams["filter"]) {
-
-        return gen_bloom({ k, size, filter });
 
     };
 
