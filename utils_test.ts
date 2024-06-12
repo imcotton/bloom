@@ -13,6 +13,8 @@ describe("uint8ArrayToNumber", function () {
 
     const cases = Array.from([
 
+        "9da165befdaa402a",
+
     ]).map(decodeHex).concat(sample(5, 8));
 
     for (const buf of cases) {
