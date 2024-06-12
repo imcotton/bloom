@@ -11,6 +11,7 @@ import murmurhash3js from "npm:murmurhash3js-revisited@^3.0.0";
 import xxhashjs from "npm:xxhashjs@~0.2.2";
 
 import { assert, assertEquals } from "jsr:@std/assert@^0.224.0";
+import { encodeHex }          from "jsr:@std/encoding@^0.224.3";
 import { describe, it } from "jsr:@std/testing@^0.224.0/bdd";
 
 
@@ -96,6 +97,18 @@ describe("Misc", function () {
         assertEquals(
             modify(Uint8Array.from([ 1, 2, 3 ]), 5, () => 9),
                    Uint8Array.from([ 1, 2, 3 ]),
+        );
+
+    });
+
+    it("resulting same between fnv1a and fnv1a-deno", function () {
+
+        const buf = crypto.getRandomValues(new Uint8Array(8));
+
+        assertEquals(
+            fnv1a(     buf, 42),
+            fnv1a_deno(buf, 42),
+            encodeHex(buf),
         );
 
     });
