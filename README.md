@@ -33,9 +33,14 @@ create new filter with internal hashing algorithm replaced
 from the default **Murmur3**
 
 ```ts
-const filter1 = bloom_by(4000, 1e-7);
+import fnv1a      from '@imcotton/bloom/hashing/fnv1a';
+import fnv1a_deno from '@imcotton/bloom/hashing/fnv1a-deno';
 
-const filter2 = filter1.swap((input, index) => 42);
+const bloom = bloom_by(4000, 1e-7);
+
+const bloom_fnv1a = bloom.swap(fnv1a);
+
+const bloom_fnv1a_deno = bloom.swap(fnv1a_deno);
 ```
 
 
