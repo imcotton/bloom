@@ -1,6 +1,6 @@
 import { gen_bloom, at, modify, bloom_by } from "./bloom-classless.ts";
 import type { Hashing } from "./utils.ts";
-import { sample } from "./bloom_test.ts";
+import { sample } from "./common.ts";
 
 // @deno-types="npm:@types/murmurhash3js-revisited"
 import murmurhash3js from "npm:murmurhash3js-revisited@^3.0.0";
