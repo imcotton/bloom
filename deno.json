@@ -3,7 +3,11 @@
   "name": "@imcotton/bloom",
   "description": "Bloom filter implementation in pure typescript",
   "version": "201.5.1",
-  "exports": "./mod.ts",
+  "exports": {
+    "./hashing/fnv1a": "./hashing/fnv1a.ts",
+    "./hashing/fnv1a-deno": "./hashing/fnv1a-deno.ts",
+    ".": "./mod.ts"
+  },
   "compilerOptions": {
     "noUnusedLocals": true,
     "noUnusedParameters": true,
