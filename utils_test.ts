@@ -1,7 +1,8 @@
 import * as utils from "./utils.ts";
+import { sample } from "./common.ts";
 
 import { assertEquals }  from "jsr:@std/assert@^0.224.0";
-import { encodeHex }   from "jsr:@std/encoding@^0.224.3";
+import { encodeHex, decodeHex } from "jsr:@std/encoding@^0.224.3";
 import { describe, it } from "jsr:@std/testing@^0.224.0/bdd";
 
 
@@ -10,17 +11,22 @@ import { describe, it } from "jsr:@std/testing@^0.224.0/bdd";
 
 describe("uint8ArrayToNumber", function () {
 
-    const buf = crypto.getRandomValues(new Uint8Array(8));
-    const hex = encodeHex(buf);
+    const cases = Array.from([
 
-    it(`reads ${ hex }`, function () {
+    ]).map(decodeHex).concat(sample(5, 8));
 
-        assertEquals(
-            utils.uint8ArrayToNumber(buf),
-            basis.uint8ArrayToNumber(buf),
-        );
+    for (const buf of cases) {
 
-    });
+        it(`reads ${ encodeHex(buf) }`, function () {
+
+            assertEquals(
+                utils.uint8ArrayToNumber(buf),
+                basis.uint8ArrayToNumber(buf),
+            );
+
+        });
+
+    }
 
 });
 
@@ -30,19 +36,28 @@ describe("uint8ArrayToNumber", function () {
 
 describe("numberToUint8Array", function () {
 
-    const buf = crypto.getRandomValues(new Uint8Array(8));
-    const hex = encodeHex(buf);
-    const big = BigInt("0x".concat(hex));
-    const num = Number(big);
+    const cases = Array.from([
 
-    it(`reads ${ hex }`, function () {
+        "9da165befdaa402a",
 
-        assertEquals(
-            utils.numberToUint8Array(num),
-            basis.numberToUint8Array(num),
-        );
+    ]).map(decodeHex).concat(sample(5, 8));
 
-    });
+    for (const buf of cases) {
+
+        const hex = encodeHex(buf);
+        const big = BigInt("0x".concat(hex));
+        const num = Number(big);
+
+        it(`reads ${ hex }`, function () {
+
+            assertEquals(
+                utils.numberToUint8Array(num),
+                basis.numberToUint8Array(num),
+            );
+
+        });
+
+    }
 
 });
 
