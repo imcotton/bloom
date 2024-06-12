@@ -97,7 +97,7 @@ export function gen_bloom ({ k, size, hash, filter = new Uint8Array(size) }: {
 
 }): BloomClassless {
 
-    const make = (next: Partial<GenBloom>) => gen_bloom({
+    const renew = (next: Partial<GenBloom>) => gen_bloom({
         k, size, hash, filter, ...next,
     });
 
@@ -131,25 +131,25 @@ export function gen_bloom ({ k, size, hash, filter = new Uint8Array(size) }: {
 
         swap (new_hash) {
 
-            return make({ hash: new_hash });
+            return renew({ hash: new_hash });
 
         },
 
         insert (input) {
 
-            return make({ filter: append(filter, input) });
+            return renew({ filter: append(filter, input) });
 
         },
 
         batch_insert (input) {
 
-            return make({ filter: fold(append, filter, input) });
+            return renew({ filter: fold(append, filter, input) });
 
         },
 
         async async_batch_insert (input) {
 
-            return make({ filter: await async_fold(append, filter, input) });
+            return renew({ filter: await async_fold(append, filter, input) });
 
         },
 
