@@ -2,7 +2,7 @@
   "$schema": "https://deno.land/x/deno/cli/schemas/config-file.v1.json",
   "name": "@imcotton/bloom",
   "description": "Bloom filter implementation in pure typescript",
-  "version": "201.5.1",
+  "version": "201.6.0",
   "exports": {
     "./hashing/fnv1a": "./hashing/fnv1a.ts",
     "./hashing/fnv1a-deno": "./hashing/fnv1a-deno.ts",
