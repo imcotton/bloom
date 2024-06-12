@@ -1,5 +1,5 @@
 import { Bloom } from "./bloom.ts";
-import { sample } from "./bloom_test.ts";
+import { sample } from "./common.ts";
 import { assertEquals } from "jsr:@std/assert@^0.224.0";
 
 Deno.test("should create bloom filter with correct properties", () => {

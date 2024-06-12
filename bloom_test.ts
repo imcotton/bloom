@@ -1,4 +1,5 @@
 import { bloom_by, bloom_from } from "./bloom-classless.ts";
+import { sample } from "./common.ts";
 import { assert, assertEquals } from "jsr:@std/assert@^0.224.0";
 
 Deno.test("should create bloom filter with correct properties", () => {
@@ -81,10 +82,4 @@ Deno.test("should no false negative with full buckets", function () {
     assert(sample(20).every(item => lookup(item) === false));
 
 });
-
-export function sample (length: number, bytes = 32) {
-    return Array.from({ length }, function () {
-        return crypto.getRandomValues(new Uint8Array(bytes));
-    });
-}
 
