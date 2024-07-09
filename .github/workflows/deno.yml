@@ -12,6 +12,7 @@ on: push
 
 permissions:
   contents: read
+  id-token: write
 
 jobs:
   test:
@@ -41,7 +42,6 @@ jobs:
       - name: Run Codecov
         uses: codecov/codecov-action@v4
         with:
-          slug: imcotton/bloom
           files: ./cov.lcov
-          token: ${{ secrets.CODECOV_TOKEN }}
+          use_oidc: true
 
