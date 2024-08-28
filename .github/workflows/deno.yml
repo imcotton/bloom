@@ -17,6 +17,12 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        deno:
+          - "~1.39"
+          - "^1.42"
+
 
     steps:
       - name: Setup repo
@@ -25,13 +31,15 @@ jobs:
       - name: Setup Deno
         uses: denoland/setup-deno@v1
         with:
-          deno-version: v1.x
+          deno-version: ${{ matrix.deno }}
 
       - name: Run linter
         run: deno lint
+        if: contains(matrix.deno, '1.39') == false
 
       - name: Run publish --dry-run
         run: deno publish --dry-run
+        if: contains(matrix.deno, '1.39') == false
 
       - name: Run tests
         run: |-
