@@ -55,6 +55,7 @@ export class Bloom {
 
             const bit = 1 << position;
 
+            // @ts-ignore only to keep old unused code
             this.filter[index] |= bit;
 
         }
