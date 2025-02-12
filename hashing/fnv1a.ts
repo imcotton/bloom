@@ -1,4 +1,4 @@
-import fnv1a from "npm:@sindresorhus/fnv1a@^3.1.0";
+import fnv1a from "npm:@sindresorhus/fnv1a@3.1.0";
 
 import { modify } from "../bloom-classless.ts";
 
