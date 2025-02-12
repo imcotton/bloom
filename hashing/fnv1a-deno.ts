@@ -1,5 +1,5 @@
-import { encodeHex }          from "jsr:@std/encoding@^1.0.0/hex";
-import { crypto as std_crypto } from "jsr:@std/crypto@^1.0.0/crypto";
+import { encodeHex }          from "jsr:@std/encoding@1/hex";
+import { crypto as std_crypto } from "jsr:@std/crypto@1/crypto";
 
 import { modify } from "../bloom-classless.ts";
 
